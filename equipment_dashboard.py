@@ -4,6 +4,7 @@ from datetime import date
 from datetime import date, timedelta,datetime
 import numpy as np
 import pandas as pd
+import eq_blob_manager as bm
 
 warnings.filterwarnings("ignore")
 
@@ -280,6 +281,9 @@ try:
     export = pd.concat((export1, export[export['DAYS_SINCE_LAST_EVENT'] == 'No_record_found']))
 
     export.to_csv(save_location + 'Equipment_data_test.csv')
+
+    output_df = export.to_csv(index=False)
+    bm.create_blob_from_csv_file('Equipment_locus.csv', output_df)
 
     log=open(save_location+'Equipment_log.txt','a')
     log.write(current_time+"\t"+'Successful'+'\n')
